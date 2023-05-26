@@ -37,6 +37,11 @@
 
 ## About The Project
 
+1. I chose to use Next.js with Chakra UI and other packages as my starting point
+2. Added basic Firebase setup
+3. Added basic UI with Header, Footer, Signup, Login Components and pages
+4. Stared working on Signup and Login functionality with Formik, Yup and Firebase
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
