@@ -3,34 +3,29 @@ import {
   Box,
   FormControl,
   FormLabel,
-  InputGroup,
   Input,
-  InputRightElement,
-  Checkbox,
   Stack,
   Link,
   Button,
   Heading,
   Text,
 } from '@chakra-ui/react';
-import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import Meta from '@/components/Meta';
 import { InputErrorMessage } from '@/components/Form/InputErrorMessage';
 import NextLink from 'next/link';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useRouter } from 'next/router';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 import { useUser } from 'reactfire';
 import { useState, useEffect } from 'react';
 
 const FormSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Email is required'),
-  password: Yup.string().required('Password is required'),
 });
 
 export default function Login() {
-  const [showPassword, setShowPassword] = useState(false);
+  const [successMessage, setSuccessMessage] = useState<string>('');
   const [submitError, setSubmitError] = useState<string>('');
 
   const { data: user } = useUser();
@@ -43,53 +38,41 @@ export default function Login() {
     }
   }, [user]);
 
-  const handleLogin = async ({
-    email,
-    password,
-  }: {
-    email: string;
-    password: string;
-  }) => {
+  const handleSendResetEmail = async ({ email }: { email: string }) => {
     const auth = getAuth();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      router.push('/dashboard');
+      await sendPasswordResetEmail(auth, email);
+      setSuccessMessage(
+        'Password reset email sent. Please check your email for further instructions.'
+      );
     } catch (error: any) {
       const errorCode = error.code;
       const errorMessage = error.message;
       const errorMessages: { [key: string]: string } = {
-        'auth/invalid-email': 'Invalid email address format',
-        'auth/user-disabled': 'This account has been disabled',
-        'auth/user-not-found': 'No user found with this email address',
-        'auth/wrong-password': 'Incorrect password',
+        'auth/invalid-email': 'Invalid email',
+        'auth/user-not-found': 'User not found',
       };
-      // show error message to user
       setSubmitError(errorMessages[errorCode] || errorMessage);
     }
   };
 
   return (
     <>
-      <Meta title="Login" description="Login to start using Expenses" />
+      <Meta title="Reset Password" description="Reset Password" />
       <Flex minH={'100vh'} align={'center'} justify={'center'} bg="gray.50">
-        <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+        <Stack spacing={8} mx={'auto'} w="400px" maxW={'lg'} py={12} px={6}>
           <Stack align={'center'}>
-            <Heading fontSize={'4xl'}>Sign in to your account</Heading>
-            <Text fontSize={'lg'} color={'gray.600'}>
-              to start using Expenses
-            </Text>
+            <Heading fontSize={'4xl'}>Reset Password</Heading>
           </Stack>
           <Box rounded={'lg'} bg="white" boxShadow={'lg'} p={8}>
             <Formik
               initialValues={{
                 email: '',
-                password: '',
               }}
               validationSchema={FormSchema}
               onSubmit={(values) =>
-                handleLogin({
+                handleSendResetEmail({
                   email: values.email,
-                  password: values.password,
                 })
               }
             >
@@ -107,53 +90,17 @@ export default function Login() {
                     <FormLabel>Email</FormLabel>
                     <Input
                       type="email"
+                      disabled={successMessage !== ''}
                       onChange={handleChange('email')}
                       onBlur={handleBlur('email')}
                       value={values.email}
                     />
                     <InputErrorMessage error={errors.email} />
                   </FormControl>
-                  <FormControl
-                    isInvalid={'password' in errors && touched.password}
-                  >
-                    <FormLabel>Password</FormLabel>
-                    <InputGroup>
-                      <Input
-                        type={showPassword ? 'text' : 'password'}
-                        onChange={handleChange('password')}
-                        onBlur={handleBlur('password')}
-                        value={values.password}
-                      />
-                      <InputRightElement h={'full'}>
-                        <Button
-                          variant={'ghost'}
-                          onClick={() =>
-                            setShowPassword((showPassword) => !showPassword)
-                          }
-                        >
-                          {showPassword ? <ViewIcon /> : <ViewOffIcon />}
-                        </Button>
-                      </InputRightElement>
-                    </InputGroup>
-                    <InputErrorMessage error={errors.password} />
-                  </FormControl>
                   <Stack spacing={10}>
-                    <Stack
-                      direction={{ base: 'column', sm: 'row' }}
-                      align={'start'}
-                      justify={'space-between'}
-                    >
-                      <Link
-                        as={NextLink}
-                        href="/forgot-password"
-                        color={'blue.400'}
-                      >
-                        Forgot password?
-                      </Link>
-                    </Stack>
                     <Button
                       isLoading={isSubmitting}
-                      isDisabled={isSubmitting}
+                      isDisabled={isSubmitting || successMessage !== ''}
                       bg={'blue.400'}
                       color={'white'}
                       _hover={{
@@ -161,7 +108,7 @@ export default function Login() {
                       }}
                       onClick={() => handleSubmit()}
                     >
-                      Login
+                      Reset Password
                     </Button>
                   </Stack>
                   {submitError && (
@@ -170,10 +117,14 @@ export default function Login() {
                     </Box>
                   )}
                   <Stack pt={6}>
+                    {successMessage && (
+                      <Box fontSize="sm" mt="1">
+                        {successMessage}
+                      </Box>
+                    )}
                     <Text align={'center'}>
-                      Don't have an account?{' '}
-                      <Link as={NextLink} href={'/signup'} color={'blue.400'}>
-                        Sign Up
+                      <Link as={NextLink} href={'/login'} color={'blue.400'}>
+                        Back to Login
                       </Link>
                     </Text>
                   </Stack>

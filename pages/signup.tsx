@@ -208,7 +208,7 @@ export default function Signup() {
                   <Stack spacing={10} pt={2}>
                     <Button
                       isLoading={isSubmitting}
-                      disabled={isSubmitting}
+                      isDisabled={isSubmitting}
                       size="lg"
                       bg={'blue.400'}
                       color={'white'}
