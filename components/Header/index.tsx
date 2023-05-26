@@ -22,6 +22,10 @@ import {
   ChevronRightIcon,
 } from '@chakra-ui/icons';
 import NextLink from 'next/link';
+import { useUser } from 'reactfire';
+import { getAuth, signOut } from 'firebase/auth';
+import { useRouter } from 'next/router';
+import { useFirebaseApp } from 'reactfire';
 
 interface NavItem {
   label: string;
@@ -65,6 +69,22 @@ const NAV_ITEMS: Array<NavItem> = [
 
 export default function Header() {
   const { isOpen, onToggle } = useDisclosure();
+
+  const app = useFirebaseApp();
+  const auth = getAuth(app);
+  const { data: user } = useUser();
+  console.log(user);
+
+  const router = useRouter();
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      router.push('/login');
+    } catch (error) {
+      console.log('Error signing out:', error);
+    }
+  };
 
   return (
     <Container>
@@ -116,29 +136,48 @@ export default function Header() {
           direction={'row'}
           spacing={6}
         >
-          <Button
-            as={NextLink}
-            href={'/login'}
-            fontSize={'sm'}
-            fontWeight={400}
-            variant={'link'}
-          >
-            Login
-          </Button>
-          <Button
-            as={NextLink}
-            href="/signup"
-            display={{ base: 'none', md: 'inline-flex' }}
-            fontSize={'sm'}
-            fontWeight={600}
-            color={'white'}
-            bg={'green.400'}
-            _hover={{
-              bg: 'green.300',
-            }}
-          >
-            Sign Up
-          </Button>
+          {!user && (
+            <Button
+              as={NextLink}
+              href={'/login'}
+              fontSize={'sm'}
+              fontWeight={400}
+              variant={'link'}
+            >
+              Login
+            </Button>
+          )}
+          {user && (
+            <Button
+              display={{ base: 'none', md: 'inline-flex' }}
+              fontSize={'sm'}
+              fontWeight={600}
+              color={'white'}
+              bg={'green.400'}
+              _hover={{
+                bg: 'green.300',
+              }}
+              onClick={handleSignOut}
+            >
+              Logout
+            </Button>
+          )}
+          {!user && (
+            <Button
+              as={NextLink}
+              href="/signup"
+              display={{ base: 'none', md: 'inline-flex' }}
+              fontSize={'sm'}
+              fontWeight={600}
+              color={'white'}
+              bg={'green.400'}
+              _hover={{
+                bg: 'green.300',
+              }}
+            >
+              Sign Up
+            </Button>
+          )}
         </Stack>
       </Flex>
 

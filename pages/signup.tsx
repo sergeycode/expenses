@@ -58,7 +58,7 @@ export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [submitError, setSubmitError] = useState<string>('');
 
-  const user = useUser();
+  const { data: user } = useUser();
   const router = useRouter();
 
   // redirect to dashboard if user is logged in
