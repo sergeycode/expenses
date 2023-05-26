@@ -1,14 +1,13 @@
-import Head from 'next/head';
+import Meta from '@/components/Meta';
+import Layout from '@/components/Layout';
 
 export default function Home() {
   return (
     <>
-      <Head>
-        <title>Expenses</title>
-        <meta name="description" content="Lorem ipsum" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <Meta title="Expenses" description="Expenses" />
+      <Layout>
+        <h1>Expenses</h1>
+      </Layout>
     </>
   );
 }
