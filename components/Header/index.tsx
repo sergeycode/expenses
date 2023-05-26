@@ -73,7 +73,6 @@ export default function Header() {
   const app = useFirebaseApp();
   const auth = getAuth(app);
   const { data: user } = useUser();
-  console.log(user);
 
   const router = useRouter();
 

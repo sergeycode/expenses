@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react';
 import { FormErrorIcon } from '@chakra-ui/react';
 import Meta from '@/components/Meta';
+import { InputErrorMessage } from '@/components/Form/InputErrorMessage';
 import { useState, useEffect } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import NextLink from 'next/link';
@@ -44,15 +45,6 @@ const FormSchema = Yup.object().shape({
     .min(8, ({ min }) => `Password must be at least ${min} characters`)
     .required('Password is required'),
 });
-
-const CustomErrorMessage = ({ error }: { error: React.ReactNode }) => {
-  return (
-    <FormErrorMessage position="absolute" bottom="-1rem" fontSize="xs">
-      <FormErrorIcon />
-      {error}
-    </FormErrorMessage>
-  );
-};
 
 export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
@@ -161,7 +153,7 @@ export default function Signup() {
                           onBlur={handleBlur('firstName')}
                           value={values.firstName}
                         />
-                        <CustomErrorMessage error={errors.firstName} />
+                        <InputErrorMessage error={errors.firstName} />
                       </FormControl>
                     </Box>
                     <Box>
@@ -175,7 +167,7 @@ export default function Signup() {
                           onBlur={handleBlur('lastName')}
                           value={values.lastName}
                         />
-                        <CustomErrorMessage error={errors.lastName} />
+                        <InputErrorMessage error={errors.lastName} />
                       </FormControl>
                     </Box>
                   </HStack>
@@ -187,7 +179,7 @@ export default function Signup() {
                       onBlur={handleBlur('email')}
                       value={values.email}
                     />
-                    <CustomErrorMessage error={errors.email} />
+                    <InputErrorMessage error={errors.email} />
                   </FormControl>
                   <FormControl
                     isInvalid={'password' in errors && touched.password}
@@ -211,7 +203,7 @@ export default function Signup() {
                         </Button>
                       </InputRightElement>
                     </InputGroup>
-                    <CustomErrorMessage error={errors.password} />
+                    <InputErrorMessage error={errors.password} />
                   </FormControl>
                   <Stack spacing={10} pt={2}>
                     <Button
