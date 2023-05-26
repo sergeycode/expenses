@@ -21,6 +21,7 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from '@chakra-ui/icons';
+import NextLink from 'next/link';
 
 interface NavItem {
   label: string;
@@ -116,22 +117,22 @@ export default function Header() {
           spacing={6}
         >
           <Button
-            as={'a'}
+            as={NextLink}
+            href={'/login'}
             fontSize={'sm'}
             fontWeight={400}
             variant={'link'}
-            href={'#'}
           >
-            Sign In
+            Login
           </Button>
           <Button
-            as={'a'}
+            as={NextLink}
+            href="/signup"
             display={{ base: 'none', md: 'inline-flex' }}
             fontSize={'sm'}
             fontWeight={600}
             color={'white'}
             bg={'green.400'}
-            href={'#'}
             _hover={{
               bg: 'green.300',
             }}
