@@ -41,6 +41,7 @@
 2. Added basic Firebase setup
 3. Added basic UI with Header, Footer, Signup, Login Components and pages
 4. Stared working on Signup and Login functionality with Formik, Yup and Firebase
+5. Added Forget Password / Reset Password functionality
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
