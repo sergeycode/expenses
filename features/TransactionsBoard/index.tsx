@@ -2,6 +2,7 @@ import {
   Table,
   Thead,
   Tbody,
+  Tfoot,
   Tr,
   Th,
   Td,
@@ -13,8 +14,7 @@ import {
 } from '@chakra-ui/react';
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
 import { collection, orderBy, where, query } from 'firebase/firestore';
-import { useFirestore, useFirestoreCollectionData, useUser } from 'reactfire';
-import { useEffect, useState } from 'react';
+import { useFirestore, useFirestoreCollectionData } from 'reactfire';
 
 export default function TransactionsBoard({ user }: { user: any }) {
   const firestore = useFirestore();
@@ -31,6 +31,22 @@ export default function TransactionsBoard({ user }: { user: any }) {
   } = useFirestoreCollectionData(transactionsQuery, {
     idField: 'id',
   });
+
+  const formatDate = (date: string) => {
+    const dateObj = new Date(date);
+    return dateObj.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  };
+
+  const summarizeAllTransactions = () => {
+    const total = transactions.reduce((acc: number, curr: any) => {
+      return acc + curr.amount;
+    }, 0);
+    return total;
+  };
 
   if (error) {
     return <Box>{error.message}</Box>;
@@ -50,8 +66,8 @@ export default function TransactionsBoard({ user }: { user: any }) {
           <Tr>
             <Th>Title</Th>
             <Th>Type</Th>
-            <Th isNumeric>Amount</Th>
             <Th>Date</Th>
+            <Th isNumeric>Amount</Th>
             <Th>Actions</Th>
           </Tr>
         </Thead>
@@ -61,12 +77,14 @@ export default function TransactionsBoard({ user }: { user: any }) {
               bgColor={transaction.type === 'expense' ? 'red.100' : 'green.100'}
               key={transaction.id}
             >
-              <Td>
-                <Box textTransform="capitalize">{transaction.type}</Box>
+              <Td fontWeight="semibold" textTransform="capitalize">
+                {transaction.type}
               </Td>
               <Td>{transaction.title}</Td>
-              <Td isNumeric>${transaction.amount}</Td>
-              <Td>{transaction.date}</Td>
+              <Td>{formatDate(transaction.date)}</Td>
+              <Td fontWeight="semibold" isNumeric>
+                ${transaction.amount}
+              </Td>
               <Td>
                 <HStack>
                   <Button
@@ -90,6 +108,16 @@ export default function TransactionsBoard({ user }: { user: any }) {
             </Tr>
           ))}
         </Tbody>
+        <Tfoot>
+          <Tr>
+            <Th></Th>
+            <Th></Th>
+            <Th>Total</Th>
+            <Th isNumeric fontSize="lg">
+              ${summarizeAllTransactions()}
+            </Th>
+          </Tr>
+        </Tfoot>
       </Table>
     </TableContainer>
   );
