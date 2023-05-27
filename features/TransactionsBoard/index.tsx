@@ -5,31 +5,14 @@ import {
   Tfoot,
   Tr,
   Th,
-  Td,
   TableContainer,
   Heading,
-  Button,
-  HStack,
   Box,
 } from '@chakra-ui/react';
-import {
-  DeleteIcon,
-  EditIcon,
-  ArrowUpIcon,
-  ArrowDownIcon,
-} from '@chakra-ui/icons';
 import { collection, orderBy, where, query } from 'firebase/firestore';
 import { useFirestore, useFirestoreCollectionData } from 'reactfire';
 import { DocumentData } from '@firebase/firestore-types';
-
-const formatDate = (date: string) => {
-  const dateObj = new Date(date);
-  return dateObj.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-};
+import TransactionRow from '@/components/UI/TransactionRow';
 
 const summarizeByType = (type: string, transactions: DocumentData[]) => {
   const total = transactions.reduce((acc: number, curr: any) => {
@@ -82,42 +65,15 @@ export default function TransactionsBoard({ user }: { user: any }) {
             </Tr>
           </Thead>
           <Tbody>
-            {transactions.map((transaction: any) => (
-              <Tr key={transaction.id}>
-                <Td fontWeight="semibold" textTransform="capitalize">
-                  {transaction.type === 'expense' ? (
-                    <ArrowDownIcon color="red.500" />
-                  ) : (
-                    <ArrowUpIcon color="green.500" />
-                  )}
-                  {transaction.type}
-                </Td>
-                <Td>{transaction.title}</Td>
-                <Td>{formatDate(transaction.date)}</Td>
-                <Td fontWeight="semibold" isNumeric>
-                  {transaction.type === 'expense' && '-'} ${transaction.amount}
-                </Td>
-                <Td>
-                  <HStack>
-                    <Button
-                      colorScheme="green"
-                      variant="outline"
-                      size="sm"
-                      leftIcon={<EditIcon />}
-                    >
-                      Edit
-                    </Button>
-                    <Button
-                      colorScheme="red"
-                      variant="outline"
-                      size="sm"
-                      leftIcon={<DeleteIcon />}
-                    >
-                      Delete
-                    </Button>
-                  </HStack>
-                </Td>
-              </Tr>
+            {transactions.map((transaction) => (
+              <TransactionRow
+                key={transaction.id}
+                id={transaction.id}
+                title={transaction.title}
+                type={transaction.type}
+                date={transaction.date}
+                amount={transaction.amount}
+              />
             ))}
           </Tbody>
           <Tfoot bgColor="gray.100">

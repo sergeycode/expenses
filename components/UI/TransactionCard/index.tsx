@@ -6,13 +6,6 @@ import {
   Heading,
   Text,
   Button,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
   useDisclosure,
 } from '@chakra-ui/react';
 import Image from 'next/image';
@@ -66,16 +59,7 @@ export default function TransactionCard({
           </Button>
         </CardFooter>
       </Stack>
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent px={4} py={6}>
-          <ModalHeader textTransform="capitalize">Add {type}</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <TransactionForm type={type} onClose={onClose} />
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+      <TransactionForm type={type} onClose={onClose} isOpen={isOpen} />
     </Card>
   );
 }
