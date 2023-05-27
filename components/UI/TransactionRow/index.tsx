@@ -66,20 +66,20 @@ export default function TransactionRow({
               Delete
             </Button>
           </HStack>
+          <TransactionForm
+            data={{
+              id: id,
+              title: title,
+              amount: amount,
+              date: date,
+              type: type,
+            }}
+            onClose={onClose}
+            isOpen={isOpen}
+            type={type}
+          />
         </Td>
       </Tr>
-      <TransactionForm
-        data={{
-          id: id,
-          title: title,
-          amount: amount,
-          date: date,
-          type: type,
-        }}
-        onClose={onClose}
-        isOpen={isOpen}
-        type={type}
-      />
     </>
   );
 }
