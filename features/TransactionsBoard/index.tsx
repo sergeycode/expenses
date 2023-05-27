@@ -57,68 +57,73 @@ export default function TransactionsBoard({ user }: { user: any }) {
   }
 
   return (
-    <TableContainer my={8}>
+    <Box my={8}>
       <Heading as="h2" fontSize="2xl" mb={4}>
         Transactions
       </Heading>
-      <Table variant="simple">
-        <Thead>
-          <Tr>
-            <Th>Title</Th>
-            <Th>Type</Th>
-            <Th>Date</Th>
-            <Th isNumeric>Amount</Th>
-            <Th>Actions</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {transactions.map((transaction: any) => (
-            <Tr
-              bgColor={transaction.type === 'expense' ? 'red.100' : 'green.100'}
-              key={transaction.id}
-            >
-              <Td fontWeight="semibold" textTransform="capitalize">
-                {transaction.type}
-              </Td>
-              <Td>{transaction.title}</Td>
-              <Td>{formatDate(transaction.date)}</Td>
-              <Td fontWeight="semibold" isNumeric>
-                ${transaction.amount}
-              </Td>
-              <Td>
-                <HStack>
-                  <Button
-                    colorScheme="green"
-                    variant="outline"
-                    size="sm"
-                    leftIcon={<EditIcon />}
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    colorScheme="red"
-                    variant="outline"
-                    size="sm"
-                    leftIcon={<DeleteIcon />}
-                  >
-                    Delete
-                  </Button>
-                </HStack>
-              </Td>
+      <TableContainer boxShadow="md">
+        <Table variant="simple">
+          <Thead>
+            <Tr>
+              <Th>Title</Th>
+              <Th>Type</Th>
+              <Th>Date</Th>
+              <Th isNumeric>Amount</Th>
+              <Th>Actions</Th>
             </Tr>
-          ))}
-        </Tbody>
-        <Tfoot>
-          <Tr>
-            <Th></Th>
-            <Th></Th>
-            <Th>Total</Th>
-            <Th isNumeric fontSize="lg">
-              ${summarizeAllTransactions()}
-            </Th>
-          </Tr>
-        </Tfoot>
-      </Table>
-    </TableContainer>
+          </Thead>
+          <Tbody>
+            {transactions.map((transaction: any) => (
+              <Tr
+                bgColor={
+                  transaction.type === 'expense' ? 'red.100' : 'green.100'
+                }
+                key={transaction.id}
+              >
+                <Td fontWeight="semibold" textTransform="capitalize">
+                  {transaction.type}
+                </Td>
+                <Td>{transaction.title}</Td>
+                <Td>{formatDate(transaction.date)}</Td>
+                <Td fontWeight="semibold" isNumeric>
+                  ${transaction.amount}
+                </Td>
+                <Td>
+                  <HStack>
+                    <Button
+                      colorScheme="green"
+                      variant="outline"
+                      size="sm"
+                      leftIcon={<EditIcon />}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      colorScheme="red"
+                      variant="outline"
+                      size="sm"
+                      leftIcon={<DeleteIcon />}
+                    >
+                      Delete
+                    </Button>
+                  </HStack>
+                </Td>
+              </Tr>
+            ))}
+          </Tbody>
+          <Tfoot bgColor="gray.100">
+            <Tr>
+              <Th></Th>
+              <Th></Th>
+              <Th>Total</Th>
+              <Th isNumeric fontSize="lg">
+                ${summarizeAllTransactions()}
+              </Th>
+              <Th></Th>
+            </Tr>
+          </Tfoot>
+        </Table>
+      </TableContainer>
+    </Box>
   );
 }
