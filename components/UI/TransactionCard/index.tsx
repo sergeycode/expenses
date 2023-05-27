@@ -43,11 +43,15 @@ export default function TransactionCard({
 
       <Stack>
         <CardBody>
-          <Heading size="md">The perfect latte</Heading>
+          <Heading size="md" textTransform="capitalize">
+            Add {type}
+          </Heading>
 
           <Text py="2">
-            Caffè latte is a coffee beverage of Italian origin made with
-            espresso and steamed milk.
+            {type === 'expense' &&
+              'Enter your expense details to track and analyze your spending habits effectively.'}
+            {type === 'income' &&
+              'Record your income sources for accurate financial analysis and budgeting.'}
           </Text>
         </CardBody>
 
