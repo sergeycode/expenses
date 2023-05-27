@@ -1,15 +1,12 @@
 import type { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
 import theme from 'styles/theme';
-import {
-  FirebaseAppProvider,
-  AuthProvider,
-  FirestoreProvider,
-} from 'reactfire';
+import { FirebaseAppProvider, AuthProvider } from 'reactfire';
 import { initializeApp } from 'firebase/app';
 import { getAuth, connectAuthEmulator } from 'firebase/auth';
 import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
 import { Toaster } from 'react-hot-toast';
+import FirestoreProviderWrapper from '@/components/FirestoreProviderWrapper';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -32,15 +29,15 @@ if (process.env.NODE_ENV === 'development') {
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <FirebaseAppProvider firebaseConfig={firebaseConfig}>
-      <FirestoreProvider sdk={db}>
+    <ChakraProvider theme={theme}>
+      <FirebaseAppProvider firebaseConfig={firebaseConfig}>
         <AuthProvider sdk={auth}>
-          <ChakraProvider theme={theme}>
+          <FirestoreProviderWrapper>
             <Toaster />
             <Component {...pageProps} />
-          </ChakraProvider>
+          </FirestoreProviderWrapper>
         </AuthProvider>
-      </FirestoreProvider>
-    </FirebaseAppProvider>
+      </FirebaseAppProvider>
+    </ChakraProvider>
   );
 }

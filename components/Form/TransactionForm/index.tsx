@@ -58,85 +58,83 @@ export default function TransactionForm({
   };
 
   return (
-    <>
-      <Formik
-        initialValues={{
-          title: '',
-          amount: 0,
-          date: '',
-          type: '',
-        }}
-        validationSchema={FormSchema}
-        onSubmit={(values) =>
-          handleAddExpense({
-            userId: user?.uid as string,
-            title: values.title,
-            amount: values.amount,
-            date: values.date,
-            type: type,
-          })
-        }
-      >
-        {({
-          errors,
-          touched,
-          isSubmitting,
-          handleSubmit,
-          handleChange,
-          handleBlur,
-          values,
-        }) => (
-          <Form>
-            <Stack spacing={4}>
-              <FormControl isInvalid={'title' in errors && touched.title}>
-                <FormLabel>Title</FormLabel>
-                <Input
-                  type="text"
-                  onChange={handleChange('title')}
-                  onBlur={handleBlur('title')}
-                  value={values.title}
-                />
-                <InputErrorMessage error={errors.title} />
-              </FormControl>
-              <FormControl isInvalid={'amount' in errors && touched.amount}>
-                <FormLabel>Amount</FormLabel>
-                <Input
-                  type="number"
-                  onChange={handleChange('amount')}
-                  onBlur={handleBlur('amount')}
-                  value={values.amount}
-                />
-                <InputErrorMessage error={errors.amount} />
-              </FormControl>
-              <FormControl isInvalid={'date' in errors && touched.date}>
-                <FormLabel>Date</FormLabel>
-                <Input
-                  type="date"
-                  onChange={handleChange('date')}
-                  onBlur={handleBlur('date')}
-                  value={values.date}
-                />
-                <InputErrorMessage error={errors.date} />
-              </FormControl>
-              <Stack spacing={10} pt={2}>
-                <Button
-                  isLoading={isSubmitting}
-                  isDisabled={isSubmitting}
-                  size="lg"
-                  bg={'blue.400'}
-                  color={'white'}
-                  _hover={{
-                    bg: 'blue.500',
-                  }}
-                  onClick={() => handleSubmit()}
-                >
-                  Submit
-                </Button>
-              </Stack>
+    <Formik
+      initialValues={{
+        title: '',
+        amount: 0,
+        date: '',
+        type: '',
+      }}
+      validationSchema={FormSchema}
+      onSubmit={(values) =>
+        handleAddExpense({
+          userId: user?.uid as string,
+          title: values.title,
+          amount: values.amount,
+          date: values.date,
+          type: type,
+        })
+      }
+    >
+      {({
+        errors,
+        touched,
+        isSubmitting,
+        handleSubmit,
+        handleChange,
+        handleBlur,
+        values,
+      }) => (
+        <Form>
+          <Stack spacing={4}>
+            <FormControl isInvalid={'title' in errors && touched.title}>
+              <FormLabel>Title</FormLabel>
+              <Input
+                type="text"
+                onChange={handleChange('title')}
+                onBlur={handleBlur('title')}
+                value={values.title}
+              />
+              <InputErrorMessage error={errors.title} />
+            </FormControl>
+            <FormControl isInvalid={'amount' in errors && touched.amount}>
+              <FormLabel>Amount</FormLabel>
+              <Input
+                type="number"
+                onChange={handleChange('amount')}
+                onBlur={handleBlur('amount')}
+                value={values.amount}
+              />
+              <InputErrorMessage error={errors.amount} />
+            </FormControl>
+            <FormControl isInvalid={'date' in errors && touched.date}>
+              <FormLabel>Date</FormLabel>
+              <Input
+                type="date"
+                onChange={handleChange('date')}
+                onBlur={handleBlur('date')}
+                value={values.date}
+              />
+              <InputErrorMessage error={errors.date} />
+            </FormControl>
+            <Stack spacing={10} pt={2}>
+              <Button
+                isLoading={isSubmitting}
+                isDisabled={isSubmitting}
+                size="lg"
+                bg={'blue.400'}
+                color={'white'}
+                _hover={{
+                  bg: 'blue.500',
+                }}
+                onClick={() => handleSubmit()}
+              >
+                Submit
+              </Button>
             </Stack>
-          </Form>
-        )}
-      </Formik>
-    </>
+          </Stack>
+        </Form>
+      )}
+    </Formik>
   );
 }

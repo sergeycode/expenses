@@ -3,7 +3,7 @@ import TransactionCard from '@/components/UI/TransactionCard';
 
 export default function AddTransactions() {
   return (
-    <Grid gap={8} templateColumns={{ lg: 'repeat(2, 1fr)' }}>
+    <Grid my={8} gap={8} templateColumns={{ lg: 'repeat(2, 1fr)' }}>
       <GridItem>
         <TransactionCard type="expense" />
       </GridItem>
