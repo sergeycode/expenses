@@ -6,6 +6,9 @@ import {
   DeleteIcon,
 } from '@chakra-ui/icons';
 import TransactionForm from '@/components/Form/TransactionForm';
+import { deleteDoc, doc } from 'firebase/firestore';
+import { useFirestore } from 'reactfire';
+import { toast } from 'react-hot-toast';
 
 const formatDate = (date: string) => {
   const dateObj = new Date(date);
@@ -30,6 +33,17 @@ export default function TransactionRow({
   date: string;
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const firestore = useFirestore();
+  const documentRef = doc(firestore, 'transactions', id);
+
+  const deteleTransaction = async () => {
+    try {
+      await deleteDoc(documentRef);
+      toast.success(`${title} ${type} deleted successfully.`);
+    } catch (error) {
+      toast.error(`Error deleting ${title} ${type}: ${error}`);
+    }
+  };
   return (
     <>
       <Tr>
@@ -62,6 +76,7 @@ export default function TransactionRow({
               variant="outline"
               size="sm"
               leftIcon={<DeleteIcon />}
+              onClick={deteleTransaction}
             >
               Delete
             </Button>

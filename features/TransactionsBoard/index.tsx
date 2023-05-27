@@ -23,6 +23,13 @@ const summarizeByType = (type: string, transactions: DocumentData[]) => {
   }, 0);
   return total;
 };
+//.toFixed(2)
+// income - expense
+const summarizeTotal = (transactions: DocumentData[]) => {
+  const income = summarizeByType('income', transactions);
+  const expense = summarizeByType('expense', transactions);
+  return income - expense;
+};
 
 export default function TransactionsBoard({ user }: { user: any }) {
   const firestore = useFirestore();
@@ -53,62 +60,67 @@ export default function TransactionsBoard({ user }: { user: any }) {
       <Heading as="h2" fontSize="2xl" mb={4}>
         Transactions
       </Heading>
-      <TableContainer border="1px solid" borderColor="gray.100">
-        <Table variant="simple">
-          <Thead>
-            <Tr>
-              <Th>Title</Th>
-              <Th>Type</Th>
-              <Th>Date</Th>
-              <Th isNumeric>Amount</Th>
-              <Th>Actions</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {transactions.map((transaction) => (
-              <TransactionRow
-                key={transaction.id}
-                id={transaction.id}
-                title={transaction.title}
-                type={transaction.type}
-                date={transaction.date}
-                amount={transaction.amount}
-              />
-            ))}
-          </Tbody>
-          <Tfoot bgColor="gray.100">
-            <Tr>
-              <Th></Th>
-              <Th></Th>
-              <Th>Total Expenses</Th>
-              <Th isNumeric fontSize="lg">
-                ${summarizeByType('expense', transactions)}
-              </Th>
-              <Th></Th>
-            </Tr>
-            <Tr>
-              <Th></Th>
-              <Th></Th>
-              <Th>Total Income</Th>
-              <Th isNumeric fontSize="lg">
-                ${summarizeByType('income', transactions)}
-              </Th>
-              <Th></Th>
-            </Tr>
-            <Tr>
-              <Th></Th>
-              <Th></Th>
-              <Th>Total Balance</Th>
-              <Th isNumeric fontSize="lg">
-                $
-                {summarizeByType('income', transactions) -
-                  summarizeByType('expense', transactions)}
-              </Th>
-              <Th></Th>
-            </Tr>
-          </Tfoot>
-        </Table>
-      </TableContainer>
+      {transactions.length > 0 && (
+        <TableContainer border="1px solid" borderColor="gray.100">
+          <Table variant="simple">
+            <Thead>
+              <Tr>
+                <Th>Title</Th>
+                <Th>Type</Th>
+                <Th>Date</Th>
+                <Th isNumeric>Amount</Th>
+                <Th>Actions</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {transactions.map((transaction) => (
+                <TransactionRow
+                  key={transaction.id}
+                  id={transaction.id}
+                  title={transaction.title}
+                  type={transaction.type}
+                  date={transaction.date}
+                  amount={transaction.amount}
+                />
+              ))}
+            </Tbody>
+            <Tfoot bgColor="gray.100">
+              <Tr>
+                <Th></Th>
+                <Th></Th>
+                <Th>Total Expenses</Th>
+                <Th isNumeric fontSize="lg">
+                  ${summarizeByType('expense', transactions).toFixed(2)}
+                </Th>
+                <Th></Th>
+              </Tr>
+              <Tr>
+                <Th></Th>
+                <Th></Th>
+                <Th>Total Income</Th>
+                <Th isNumeric fontSize="lg">
+                  ${summarizeByType('income', transactions).toFixed(2)}
+                </Th>
+                <Th></Th>
+              </Tr>
+              <Tr>
+                <Th></Th>
+                <Th></Th>
+                <Th>Total Balance</Th>
+                <Th isNumeric fontSize="lg">
+                  ${summarizeTotal(transactions).toFixed(2)}
+                </Th>
+                <Th></Th>
+              </Tr>
+            </Tfoot>
+          </Table>
+        </TableContainer>
+      )}
+      {transactions.length === 0 && (
+        <Box textAlign="center" fontSize="lg">
+          No transactions yet. Please add one.
+        </Box>
+      )}
     </Box>
   );
 }
