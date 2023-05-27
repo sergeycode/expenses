@@ -13,7 +13,7 @@ import {
 import Meta from '@/components/Meta';
 import { InputErrorMessage } from '@/components/Form/InputErrorMessage';
 import NextLink from 'next/link';
-import { Formik } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { useRouter } from 'next/router';
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
@@ -85,50 +85,52 @@ export default function Login() {
                 handleBlur,
                 values,
               }) => (
-                <Stack spacing={4}>
-                  <FormControl isInvalid={'email' in errors && touched.email}>
-                    <FormLabel>Email</FormLabel>
-                    <Input
-                      type="email"
-                      disabled={successMessage !== ''}
-                      onChange={handleChange('email')}
-                      onBlur={handleBlur('email')}
-                      value={values.email}
-                    />
-                    <InputErrorMessage error={errors.email} />
-                  </FormControl>
-                  <Stack spacing={10}>
-                    <Button
-                      isLoading={isSubmitting}
-                      isDisabled={isSubmitting || successMessage !== ''}
-                      bg={'blue.400'}
-                      color={'white'}
-                      _hover={{
-                        bg: 'blue.500',
-                      }}
-                      onClick={() => handleSubmit()}
-                    >
-                      Reset Password
-                    </Button>
-                  </Stack>
-                  {submitError && (
-                    <Box fontSize="xs" mt="1" color="red">
-                      {submitError}
-                    </Box>
-                  )}
-                  <Stack pt={6}>
-                    {successMessage && (
-                      <Box fontSize="sm" mt="1">
-                        {successMessage}
+                <Form>
+                  <Stack spacing={4}>
+                    <FormControl isInvalid={'email' in errors && touched.email}>
+                      <FormLabel>Email</FormLabel>
+                      <Input
+                        type="email"
+                        disabled={successMessage !== ''}
+                        onChange={handleChange('email')}
+                        onBlur={handleBlur('email')}
+                        value={values.email}
+                      />
+                      <InputErrorMessage error={errors.email} />
+                    </FormControl>
+                    <Stack spacing={10}>
+                      <Button
+                        isLoading={isSubmitting}
+                        isDisabled={isSubmitting || successMessage !== ''}
+                        bg={'blue.400'}
+                        color={'white'}
+                        _hover={{
+                          bg: 'blue.500',
+                        }}
+                        onClick={() => handleSubmit()}
+                      >
+                        Reset Password
+                      </Button>
+                    </Stack>
+                    {submitError && (
+                      <Box fontSize="xs" mt="1" color="red">
+                        {submitError}
                       </Box>
                     )}
-                    <Text align={'center'}>
-                      <Link as={NextLink} href={'/login'} color={'blue.400'}>
-                        Back to Login
-                      </Link>
-                    </Text>
+                    <Stack pt={6}>
+                      {successMessage && (
+                        <Box fontSize="sm" mt="1">
+                          {successMessage}
+                        </Box>
+                      )}
+                      <Text align={'center'}>
+                        <Link as={NextLink} href={'/login'} color={'blue.400'}>
+                          Back to Login
+                        </Link>
+                      </Text>
+                    </Stack>
                   </Stack>
-                </Stack>
+                </Form>
               )}
             </Formik>
           </Box>

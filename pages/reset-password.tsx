@@ -6,7 +6,6 @@ import {
   InputGroup,
   Input,
   InputRightElement,
-  Checkbox,
   Stack,
   Link,
   Button,
@@ -17,7 +16,7 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import Meta from '@/components/Meta';
 import { InputErrorMessage } from '@/components/Form/InputErrorMessage';
 import NextLink from 'next/link';
-import { Formik } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { useRouter } from 'next/router';
 import { getAuth, confirmPasswordReset } from 'firebase/auth';
@@ -105,58 +104,60 @@ export default function Login() {
                 handleBlur,
                 values,
               }) => (
-                <Stack spacing={4}>
-                  <FormControl
-                    isInvalid={'password' in errors && touched.password}
-                  >
-                    <FormLabel>New Password</FormLabel>
-                    <InputGroup>
-                      <Input
-                        type={showPassword ? 'text' : 'password'}
-                        onChange={handleChange('password')}
-                        onBlur={handleBlur('password')}
-                        value={values.password}
-                      />
-                      <InputRightElement h={'full'}>
-                        <Button
-                          variant={'ghost'}
-                          onClick={() =>
-                            setShowPassword((showPassword) => !showPassword)
-                          }
-                        >
-                          {showPassword ? <ViewIcon /> : <ViewOffIcon />}
-                        </Button>
-                      </InputRightElement>
-                    </InputGroup>
-                    <InputErrorMessage error={errors.password} />
-                  </FormControl>
-                  <Stack spacing={10}>
-                    <Button
-                      isLoading={isSubmitting}
-                      isDisabled={isSubmitting}
-                      bg={'blue.400'}
-                      color={'white'}
-                      _hover={{
-                        bg: 'blue.500',
-                      }}
-                      onClick={() => handleSubmit()}
+                <Form>
+                  <Stack spacing={4}>
+                    <FormControl
+                      isInvalid={'password' in errors && touched.password}
                     >
-                      Submit
-                    </Button>
+                      <FormLabel>New Password</FormLabel>
+                      <InputGroup>
+                        <Input
+                          type={showPassword ? 'text' : 'password'}
+                          onChange={handleChange('password')}
+                          onBlur={handleBlur('password')}
+                          value={values.password}
+                        />
+                        <InputRightElement h={'full'}>
+                          <Button
+                            variant={'ghost'}
+                            onClick={() =>
+                              setShowPassword((showPassword) => !showPassword)
+                            }
+                          >
+                            {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                          </Button>
+                        </InputRightElement>
+                      </InputGroup>
+                      <InputErrorMessage error={errors.password} />
+                    </FormControl>
+                    <Stack spacing={10}>
+                      <Button
+                        isLoading={isSubmitting}
+                        isDisabled={isSubmitting}
+                        bg={'blue.400'}
+                        color={'white'}
+                        _hover={{
+                          bg: 'blue.500',
+                        }}
+                        onClick={() => handleSubmit()}
+                      >
+                        Submit
+                      </Button>
+                    </Stack>
+                    {submitError && (
+                      <Box fontSize="xs" mt="1" color="red">
+                        {submitError}
+                      </Box>
+                    )}
+                    <Stack pt={6}>
+                      <Text align={'center'}>
+                        <Link as={NextLink} href={'/login'} color={'blue.400'}>
+                          Back to Login
+                        </Link>
+                      </Text>
+                    </Stack>
                   </Stack>
-                  {submitError && (
-                    <Box fontSize="xs" mt="1" color="red">
-                      {submitError}
-                    </Box>
-                  )}
-                  <Stack pt={6}>
-                    <Text align={'center'}>
-                      <Link as={NextLink} href={'/login'} color={'blue.400'}>
-                        Back to Login
-                      </Link>
-                    </Text>
-                  </Stack>
-                </Stack>
+                </Form>
               )}
             </Formik>
           </Box>
