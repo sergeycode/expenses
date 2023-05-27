@@ -2,6 +2,7 @@ import {
   FormControl,
   FormLabel,
   Input,
+  Box,
   Stack,
   Button,
   Modal,
@@ -164,17 +165,16 @@ export default function TransactionForm({
                   </FormControl>
                   <Stack spacing={10} pt={2}>
                     <Button
+                      variant="gradient"
                       isLoading={isSubmitting}
                       isDisabled={isSubmitting}
-                      size="lg"
-                      bg={'blue.400'}
-                      color={'white'}
-                      _hover={{
-                        bg: 'blue.500',
-                      }}
+                      minH="45px"
+                      fontSize="lg"
                       onClick={() => handleSubmit()}
                     >
-                      Submit
+                      <Box zIndex="1" color={'white'}>
+                        Submit
+                      </Box>
                     </Button>
                   </Stack>
                 </Stack>

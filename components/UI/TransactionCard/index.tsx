@@ -1,16 +1,15 @@
 import {
   Card,
   CardBody,
-  CardFooter,
+  Box,
   Stack,
   Heading,
   Text,
   Button,
+  Grid,
+  GridItem,
   useDisclosure,
 } from '@chakra-ui/react';
-import Image from 'next/image';
-import payOnline from '/public/images/pay-online.svg';
-import savings from '/public/images/savings.svg';
 import TransactionForm from '@/components/Form/TransactionForm';
 
 export default function TransactionCard({
@@ -27,37 +26,33 @@ export default function TransactionCard({
       variant="outline"
       borderRadius="3xl"
     >
-      <Image
-        width={150}
-        height={150}
-        src={type === 'expense' ? payOnline : savings}
-        alt={type === 'expense' ? 'Pay online' : 'Savings'}
-      />
-
       <Stack>
-        <CardBody>
-          <Heading size="md" textTransform="capitalize">
-            Add {type}
-          </Heading>
+        <CardBody as={Grid} gap={2} templateColumns={{ md: '10fr 2fr' }}>
+          <GridItem>
+            <Heading size="md" textTransform="capitalize">
+              Add {type}
+            </Heading>
 
-          <Text py="2">
-            {type === 'expense' &&
-              'Enter your expense details to track and analyze your spending habits effectively.'}
-            {type === 'income' &&
-              'Record your income sources for accurate financial analysis and budgeting.'}
-          </Text>
+            <Text fontSize="md" py="2" color="gray.600">
+              {type === 'expense' &&
+                'Enter your expense details to track and analyze your spending habits effectively.'}
+              {type === 'income' &&
+                'Record your income sources for accurate financial analysis and budgeting.'}
+            </Text>
+          </GridItem>
+          <GridItem>
+            <Button
+              borderRadius="xl"
+              maxW="150px"
+              variant="outline"
+              colorScheme={type === 'expense' ? 'red' : 'green'}
+              onClick={onOpen}
+              textTransform="capitalize"
+            >
+              Add {type}
+            </Button>
+          </GridItem>
         </CardBody>
-
-        <CardFooter>
-          <Button
-            variant="solid"
-            colorScheme="blue"
-            onClick={onOpen}
-            textTransform="capitalize"
-          >
-            Add {type}
-          </Button>
-        </CardFooter>
       </Stack>
       <TransactionForm type={type} onClose={onClose} isOpen={isOpen} />
     </Card>

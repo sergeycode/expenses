@@ -19,6 +19,7 @@ const theme = extendTheme({
         gradient: {
           fontSize: 'sm',
           fontWeight: 600,
+          borderRadius: 'xl',
           position: 'relative',
           bgGradient: 'linear(to-t, #08AEEA 40%, #2AF598 100%)',
           overflow: 'hidden',

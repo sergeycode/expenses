@@ -132,16 +132,16 @@ export default function Login() {
                     </FormControl>
                     <Stack spacing={10}>
                       <Button
+                        minH="45px"
+                        fontSize="lg"
+                        variant="gradient"
                         isLoading={isSubmitting}
                         isDisabled={isSubmitting}
-                        bg={'blue.400'}
-                        color={'white'}
-                        _hover={{
-                          bg: 'blue.500',
-                        }}
                         onClick={() => handleSubmit()}
                       >
-                        Submit
+                        <Box zIndex="1" color={'white'}>
+                          Submit
+                        </Box>
                       </Button>
                     </Stack>
                     {submitError && (

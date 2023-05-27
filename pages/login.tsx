@@ -152,16 +152,16 @@ export default function Login() {
                         </Link>
                       </Stack>
                       <Button
+                        minH="45px"
+                        fontSize="lg"
+                        variant="gradient"
                         isLoading={isSubmitting}
                         isDisabled={isSubmitting}
-                        bg={'blue.400'}
-                        color={'white'}
-                        _hover={{
-                          bg: 'blue.500',
-                        }}
                         onClick={() => handleSubmit()}
                       >
-                        Login
+                        <Box zIndex="1" color={'white'}>
+                          Login
+                        </Box>
                       </Button>
                     </Stack>
                     {submitError && (

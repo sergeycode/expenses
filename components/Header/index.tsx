@@ -63,6 +63,7 @@ export default function Header() {
   const { isOpen, onToggle } = useDisclosure();
 
   const { data: user } = useUser();
+  console.log(user);
 
   if (user && !NAV_ITEMS.some((item) => item.label === dashboardItem.label)) {
     NAV_ITEMS.unshift(dashboardItem);
@@ -138,15 +139,11 @@ export default function Header() {
               as={NextLink}
               href="/signup"
               display={{ base: 'none', md: 'inline-flex' }}
-              fontSize={'sm'}
-              fontWeight={600}
-              color={'white'}
-              bg={'green.400'}
-              _hover={{
-                bg: 'green.300',
-              }}
+              variant="gradient"
             >
-              Sign Up
+              <Box zIndex="1" color={'white'}>
+                Sign Up
+              </Box>
             </Button>
           )}
         </Stack>

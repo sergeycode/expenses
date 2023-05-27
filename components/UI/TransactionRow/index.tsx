@@ -63,6 +63,7 @@ export default function TransactionRow({
         <Td>
           <HStack>
             <Button
+              borderRadius="xl"
               colorScheme="green"
               variant="outline"
               size="sm"
@@ -72,6 +73,7 @@ export default function TransactionRow({
               Edit
             </Button>
             <Button
+              borderRadius="xl"
               colorScheme="red"
               variant="outline"
               size="sm"
