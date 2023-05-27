@@ -44,6 +44,8 @@
 5. Added Forget Password / Reset Password functionality
 6. Dashboard with logged-in user info
 7. Added Expenses and Income sections to the dashboard with adding to firestore functionality
+8. Add table with expenses and income and edit / delete functionality
+9. Restyled UI and refactored code
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
