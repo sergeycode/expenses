@@ -3,6 +3,10 @@ import Image from 'next/image';
 import logo from '/public/images/logo.svg';
 
 export default function Footer() {
+  const getCurrentYear = () => {
+    return new Date().getFullYear();
+  };
+
   return (
     <Box bg="gray.50" color="gray.700">
       <Box py={10}>
@@ -26,7 +30,7 @@ export default function Footer() {
           <Image src={logo} alt="logo" width={50} height={50} />
         </Flex>
         <Text pt={6} fontSize={'sm'} textAlign={'center'}>
-          © 2022 Expenses. All rights reserved
+          © {getCurrentYear()} Expenses. All rights reserved
         </Text>
       </Box>
     </Box>

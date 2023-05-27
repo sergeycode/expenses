@@ -5,7 +5,7 @@ import Hero from '@/components/UI/Hero';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useUser } from 'reactfire';
-import TransactionCard from '@/components/UI/TransactionCard';
+import AddTransactions from '@/features/AddTransactions';
 
 export default function Home() {
   const { data: user } = useUser();
@@ -26,14 +26,7 @@ export default function Home() {
       />
       <Layout>
         <Hero title="Dashboard" name={user?.displayName} email={user?.email} />
-        <Grid gap={8} templateColumns={{ lg: 'repeat(2, 1fr)' }}>
-          <GridItem>
-            <TransactionCard type="expense" />
-          </GridItem>
-          <GridItem>
-            <TransactionCard type="income" />
-          </GridItem>
-        </Grid>
+        <AddTransactions />
       </Layout>
     </>
   );
