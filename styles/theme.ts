@@ -14,6 +14,28 @@ const theme = extendTheme({
         maxW: ['100%', '540px', '720px', '960px', '1140px'],
       },
     },
+    Button: {
+      variants: {
+        gradient: {
+          fontSize: 'sm',
+          fontWeight: 600,
+          position: 'relative',
+          bgGradient: 'linear(to-t, #08AEEA 40%, #2AF598 100%)',
+          overflow: 'hidden',
+          _before: {
+            position: 'absolute',
+            content: `""`,
+            width: '100%',
+            height: '100%',
+            bgGradient: 'linear(to-b, #08AEEA 40%, #2AF598 100%)',
+            transition: 'opacity 1s',
+          },
+          _hover: {
+            _before: { opacity: 0 },
+          },
+        },
+      },
+    }
   },
   breakpoints: {
     sm: '576px',

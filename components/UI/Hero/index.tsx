@@ -1,4 +1,4 @@
-import { Box, HStack, Avatar, Button, Grid, GridItem } from '@chakra-ui/react';
+import { Box, Avatar, Button, Grid, GridItem } from '@chakra-ui/react';
 import { useFirebaseApp } from 'reactfire';
 import { getAuth, signOut } from 'firebase/auth';
 import { useRouter } from 'next/router';
@@ -75,20 +75,10 @@ export default function Hero({
           </Box>
         </GridItem>
         <GridItem>
-          <Button
-            display={{ md: 'block' }}
-            ml="auto"
-            mr="0"
-            fontSize={'sm'}
-            fontWeight={600}
-            color={'white'}
-            bg={'green.400'}
-            _hover={{
-              bg: 'green.300',
-            }}
-            onClick={handleSignOut}
-          >
-            Logout
+          <Button ml="auto" mr="0" onClick={handleSignOut} variant="gradient">
+            <Box zIndex="1" color={'white'}>
+              Logout
+            </Box>
           </Button>
         </GridItem>
       </Grid>
