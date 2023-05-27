@@ -12,7 +12,9 @@ const FormSchema = Yup.object().shape({
   amount: Yup.number()
     .positive('Amount must be more than 0')
     .required('Amount is required'),
-  date: Yup.date().required('Date is required'),
+  date: Yup.date()
+    .max(new Date(), 'Date must not be later than today')
+    .required('Date is required'),
 });
 
 export default function TransactionForm({
