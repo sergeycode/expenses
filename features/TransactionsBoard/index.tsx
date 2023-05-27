@@ -12,9 +12,34 @@ import {
   HStack,
   Box,
 } from '@chakra-ui/react';
-import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
+import {
+  DeleteIcon,
+  EditIcon,
+  ArrowUpIcon,
+  ArrowDownIcon,
+} from '@chakra-ui/icons';
 import { collection, orderBy, where, query } from 'firebase/firestore';
 import { useFirestore, useFirestoreCollectionData } from 'reactfire';
+import { DocumentData } from '@firebase/firestore-types';
+
+const formatDate = (date: string) => {
+  const dateObj = new Date(date);
+  return dateObj.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+};
+
+const summarizeByType = (type: string, transactions: DocumentData[]) => {
+  const total = transactions.reduce((acc: number, curr: any) => {
+    if (curr.type === type) {
+      return acc + curr.amount;
+    }
+    return acc;
+  }, 0);
+  return total;
+};
 
 export default function TransactionsBoard({ user }: { user: any }) {
   const firestore = useFirestore();
@@ -32,22 +57,6 @@ export default function TransactionsBoard({ user }: { user: any }) {
     idField: 'id',
   });
 
-  const formatDate = (date: string) => {
-    const dateObj = new Date(date);
-    return dateObj.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    });
-  };
-
-  const summarizeAllTransactions = () => {
-    const total = transactions.reduce((acc: number, curr: any) => {
-      return acc + curr.amount;
-    }, 0);
-    return total;
-  };
-
   if (error) {
     return <Box>{error.message}</Box>;
   }
@@ -61,7 +70,7 @@ export default function TransactionsBoard({ user }: { user: any }) {
       <Heading as="h2" fontSize="2xl" mb={4}>
         Transactions
       </Heading>
-      <TableContainer boxShadow="md">
+      <TableContainer border="1px solid" borderColor="gray.100">
         <Table variant="simple">
           <Thead>
             <Tr>
@@ -74,19 +83,19 @@ export default function TransactionsBoard({ user }: { user: any }) {
           </Thead>
           <Tbody>
             {transactions.map((transaction: any) => (
-              <Tr
-                bgColor={
-                  transaction.type === 'expense' ? 'red.100' : 'green.100'
-                }
-                key={transaction.id}
-              >
+              <Tr key={transaction.id}>
                 <Td fontWeight="semibold" textTransform="capitalize">
+                  {transaction.type === 'expense' ? (
+                    <ArrowDownIcon color="red.500" />
+                  ) : (
+                    <ArrowUpIcon color="green.500" />
+                  )}
                   {transaction.type}
                 </Td>
                 <Td>{transaction.title}</Td>
                 <Td>{formatDate(transaction.date)}</Td>
                 <Td fontWeight="semibold" isNumeric>
-                  ${transaction.amount}
+                  {transaction.type === 'expense' && '-'} ${transaction.amount}
                 </Td>
                 <Td>
                   <HStack>
@@ -115,9 +124,29 @@ export default function TransactionsBoard({ user }: { user: any }) {
             <Tr>
               <Th></Th>
               <Th></Th>
-              <Th>Total</Th>
+              <Th>Total Expenses</Th>
               <Th isNumeric fontSize="lg">
-                ${summarizeAllTransactions()}
+                ${summarizeByType('expense', transactions)}
+              </Th>
+              <Th></Th>
+            </Tr>
+            <Tr>
+              <Th></Th>
+              <Th></Th>
+              <Th>Total Income</Th>
+              <Th isNumeric fontSize="lg">
+                ${summarizeByType('income', transactions)}
+              </Th>
+              <Th></Th>
+            </Tr>
+            <Tr>
+              <Th></Th>
+              <Th></Th>
+              <Th>Total Balance</Th>
+              <Th isNumeric fontSize="lg">
+                $
+                {summarizeByType('income', transactions) -
+                  summarizeByType('expense', transactions)}
               </Th>
               <Th></Th>
             </Tr>
