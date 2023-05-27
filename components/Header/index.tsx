@@ -21,6 +21,8 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from '@chakra-ui/icons';
+import Image from 'next/image';
+import logo from '/public/images/logo.svg';
 import NextLink from 'next/link';
 import { useUser } from 'reactfire';
 import { getAuth, signOut } from 'firebase/auth';
@@ -34,33 +36,23 @@ interface NavItem {
   href?: string;
 }
 
-const NAV_ITEMS: Array<NavItem> = [
+const dashboardItem: NavItem = {
+  label: 'Dashboard',
+  href: '/dashboard',
+};
+
+let NAV_ITEMS: Array<NavItem> = [
   {
-    label: 'Inspiration',
+    label: 'About',
     children: [
       {
-        label: 'Explore Design Work',
-        subLabel: 'Trending Design to inspire you',
+        label: 'How it works',
+        subLabel: 'See how we work',
         href: '#',
       },
       {
-        label: 'New & Noteworthy',
-        subLabel: 'Up-and-coming Designers',
-        href: '#',
-      },
-    ],
-  },
-  {
-    label: 'Find Work',
-    children: [
-      {
-        label: 'Job Board',
-        subLabel: 'Find your dream design job',
-        href: '#',
-      },
-      {
-        label: 'Freelance Projects',
-        subLabel: 'An exclusive list for contract work',
+        label: 'About Us',
+        subLabel: 'Who we are',
         href: '#',
       },
     ],
@@ -70,20 +62,11 @@ const NAV_ITEMS: Array<NavItem> = [
 export default function Header() {
   const { isOpen, onToggle } = useDisclosure();
 
-  const app = useFirebaseApp();
-  const auth = getAuth(app);
   const { data: user } = useUser();
 
-  const router = useRouter();
-
-  const handleSignOut = async () => {
-    try {
-      await signOut(auth);
-      router.push('/login');
-    } catch (error) {
-      console.log('Error signing out:', error);
-    }
-  };
+  if (user && !NAV_ITEMS.some((item) => item.label === dashboardItem.label)) {
+    NAV_ITEMS.unshift(dashboardItem);
+  }
 
   return (
     <Container>
@@ -112,7 +95,11 @@ export default function Header() {
             aria-label={'Toggle Navigation'}
           />
         </Flex>
-        <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
+        <Flex
+          flex={{ base: 1 }}
+          justify={{ base: 'center', md: 'start' }}
+          alignItems="center"
+        >
           <Text
             textAlign={useBreakpointValue({
               base: 'center',
@@ -121,7 +108,7 @@ export default function Header() {
             fontFamily={'heading'}
             color="gray.800"
           >
-            Logo
+            <Image src={logo} alt="logo" width={35} height={35} />
           </Text>
 
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
@@ -144,21 +131,6 @@ export default function Header() {
               variant={'link'}
             >
               Login
-            </Button>
-          )}
-          {user && (
-            <Button
-              display={{ base: 'none', md: 'inline-flex' }}
-              fontSize={'sm'}
-              fontWeight={600}
-              color={'white'}
-              bg={'green.400'}
-              _hover={{
-                bg: 'green.300',
-              }}
-              onClick={handleSignOut}
-            >
-              Logout
             </Button>
           )}
           {!user && (

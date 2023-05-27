@@ -1,4 +1,7 @@
-import { Box, HStack, Avatar } from '@chakra-ui/react';
+import { Box, HStack, Avatar, Button, Grid, GridItem } from '@chakra-ui/react';
+import { useFirebaseApp } from 'reactfire';
+import { getAuth, signOut } from 'firebase/auth';
+import { useRouter } from 'next/router';
 
 export default function Hero({
   title,
@@ -9,12 +12,25 @@ export default function Hero({
   name: string | null | undefined;
   email: string | null | undefined;
 }) {
+  const app = useFirebaseApp();
+  const auth = getAuth(app);
+
+  const router = useRouter();
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      router.push('/login');
+    } catch (error) {
+      console.log('Error signing out:', error);
+    }
+  };
   return (
     <>
       <Box
         bgImage="linear-gradient(161deg, #08AEEA 0%, #2AF598 100%)"
         w="100%"
-        height={{ base: '10rem', md: '12.5rem' }}
+        height={{ base: '7.5rem', md: '8.5rem' }}
         borderRadius="3xl"
         pl="2.5%"
         pt={5}
@@ -23,32 +39,59 @@ export default function Hero({
           {title}
         </Box>
       </Box>
-      <HStack
+      <Grid
         background="rgba(255, 255, 255, 0.8)"
         backdropFilter="saturate(200%) blur(50px)"
         w="95%"
         mx="auto"
-        mt="-50px"
-        height="100px"
+        transform="translateY(-50px)"
+        minHeight="6.25rem"
         borderRadius="3xl"
         border="2px solid #FFF"
-        alignItems="center"
         px={4}
+        py={6}
+        gap={4}
+        alignItems="center"
+        templateColumns="10fr 2fr"
       >
-        <Avatar
-          name={name || ''}
-          borderRadius="xl"
-          bgImage="linear-gradient(161deg, #08AEEA 0%, #2AF598 100%)"
-        />
-        <Box>
-          <Box fontSize="lg" fontWeight="bold">
-            {name}
+        <GridItem display="flex" alignItems="center">
+          <Avatar
+            name={name || ''}
+            borderRadius="xl"
+            bgImage="linear-gradient(161deg, #08AEEA 0%, #2AF598 100%)"
+          />
+          <Box ml={3}>
+            <Box
+              fontSize="lg"
+              fontWeight="bold"
+              maxW={{ base: '10.625rem', md: 'auto' }}
+              isTruncated
+            >
+              {name}
+            </Box>
+            <Box fontSize="sm" color="gray.500" fontWeight="semibold">
+              {email}
+            </Box>
           </Box>
-          <Box fontSize="sm" color="gray.500" fontWeight="semibold">
-            {email}
-          </Box>
-        </Box>
-      </HStack>
+        </GridItem>
+        <GridItem>
+          <Button
+            display={{ md: 'block' }}
+            ml="auto"
+            mr="0"
+            fontSize={'sm'}
+            fontWeight={600}
+            color={'white'}
+            bg={'green.400'}
+            _hover={{
+              bg: 'green.300',
+            }}
+            onClick={handleSignOut}
+          >
+            Logout
+          </Button>
+        </GridItem>
+      </Grid>
     </>
   );
 }
