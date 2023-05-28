@@ -20,7 +20,7 @@ import { collection, orderBy, where, query } from 'firebase/firestore';
 import { useFirestore, useFirestoreCollectionData } from 'reactfire';
 import { DocumentData } from '@firebase/firestore-types';
 import TransactionRow from '@/components/UI/TransactionRow';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const summarizeByType = (type: string, transactions: DocumentData[]) => {
   const total = transactions.reduce((acc: number, curr: any) => {
@@ -119,6 +119,14 @@ export default function TransactionsBoard({ user }: { user: any }) {
     setActiveMonth('all');
     filterAllTransactionsBy({ type: 'all', month: 'all' });
   };
+
+  useEffect(() => {
+    setFilter(transactions);
+    filterAllTransactionsBy({
+      type: activeSwitch || 'all',
+      month: activeMonth || 'all',
+    });
+  }, [transactions]);
 
   if (error) {
     return <Box>{error.message}</Box>;
@@ -242,7 +250,7 @@ export default function TransactionsBoard({ user }: { user: any }) {
                 <Th></Th>
                 <Th>Total Expenses</Th>
                 <Th isNumeric fontSize="lg">
-                  ${summarizeByType('expense', transactions).toFixed(2)}
+                  ${summarizeByType('expense', filter).toFixed(2)}
                 </Th>
                 <Th></Th>
               </Tr>
@@ -251,7 +259,7 @@ export default function TransactionsBoard({ user }: { user: any }) {
                 <Th></Th>
                 <Th>Total Income</Th>
                 <Th isNumeric fontSize="lg">
-                  ${summarizeByType('income', transactions).toFixed(2)}
+                  ${summarizeByType('income', filter).toFixed(2)}
                 </Th>
                 <Th></Th>
               </Tr>
@@ -260,7 +268,7 @@ export default function TransactionsBoard({ user }: { user: any }) {
                 <Th></Th>
                 <Th>Total Balance</Th>
                 <Th isNumeric fontSize="lg">
-                  ${summarizeTotal(transactions).toFixed(2)}
+                  ${summarizeTotal(filter).toFixed(2)}
                 </Th>
                 <Th></Th>
               </Tr>

@@ -60,7 +60,6 @@ export default function Header() {
   const { isOpen, onToggle } = useDisclosure();
 
   const { data: user } = useUser();
-  console.log(user);
 
   if (user && !NAV_ITEMS.some((item) => item.label === dashboardItem.label)) {
     NAV_ITEMS.unshift(dashboardItem);
