@@ -29,7 +29,12 @@ export default function TransactionCard({
       <Stack>
         <CardBody as={Grid} gap={2} templateColumns={{ md: '10fr 2fr' }}>
           <GridItem>
-            <Heading size="md" textTransform="capitalize">
+            <Heading
+              bgGradient="linear(to-r, #4158D0, #C850C0, #FFCC70)"
+              bgClip="text"
+              fontSize="xl"
+              textTransform="capitalize"
+            >
               Add {type}
             </Heading>
 

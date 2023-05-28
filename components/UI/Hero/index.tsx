@@ -28,7 +28,7 @@ export default function Hero({
   return (
     <>
       <Box
-        bgImage="linear-gradient(161deg, #08AEEA 0%, #2AF598 100%)"
+        bgImage="linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%)"
         w="100%"
         height={{ base: '7.5rem', md: '8.5rem' }}
         borderRadius="3xl"
@@ -58,7 +58,7 @@ export default function Hero({
           <Avatar
             name={name || ''}
             borderRadius="xl"
-            bgImage="linear-gradient(161deg, #08AEEA 0%, #2AF598 100%)"
+            bgImage="linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%)"
           />
           <Box ml={3}>
             <Box

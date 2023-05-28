@@ -62,7 +62,13 @@ export default function Login() {
       <Flex minH={'100vh'} align={'center'} justify={'center'} bg="gray.50">
         <Stack spacing={8} mx={'auto'} w="400px" maxW={'lg'} py={12} px={6}>
           <Stack align={'center'}>
-            <Heading fontSize={'4xl'}>Reset Password</Heading>
+            <Heading
+              bgGradient="linear(to-r, #4158D0, #C850C0, #FFCC70)"
+              bgClip="text"
+              fontSize={'4xl'}
+            >
+              Reset Password
+            </Heading>
           </Stack>
           <Box rounded={'lg'} bg="white" boxShadow={'lg'} p={8}>
             <Formik

@@ -1,6 +1,5 @@
 import { Box, Text, Flex } from '@chakra-ui/react';
-import Image from 'next/image';
-import logo from '/public/images/logo.svg';
+import Logo from '@/components/UI/Logo';
 
 export default function Footer() {
   const getCurrentYear = () => {
@@ -27,10 +26,10 @@ export default function Footer() {
             ml: 8,
           }}
         >
-          <Image src={logo} alt="logo" width={50} height={50} />
+          <Logo />
         </Flex>
         <Text pt={6} fontSize={'sm'} textAlign={'center'}>
-          © {getCurrentYear()} Expenses. All rights reserved
+          © {getCurrentYear()} Expenses Tracker. All rights reserved
         </Text>
       </Box>
     </Box>

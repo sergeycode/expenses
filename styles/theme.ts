@@ -21,14 +21,14 @@ const theme = extendTheme({
           fontWeight: 600,
           borderRadius: 'xl',
           position: 'relative',
-          bgGradient: 'linear(to-t, #08AEEA 40%, #2AF598 100%)',
+          bgGradient: 'linear(to-l, #4158D0, #C850C0, #FFCC70)',
           overflow: 'hidden',
           _before: {
             position: 'absolute',
             content: `""`,
             width: '100%',
             height: '100%',
-            bgGradient: 'linear(to-b, #08AEEA 40%, #2AF598 100%)',
+            bgGradient: 'linear(to-r, #4158D0, #C850C0, #FFCC70)',
             transition: 'opacity 1s',
           },
           _hover: {

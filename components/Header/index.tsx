@@ -22,12 +22,9 @@ import {
   ChevronRightIcon,
 } from '@chakra-ui/icons';
 import Image from 'next/image';
-import logo from '/public/images/logo.svg';
 import NextLink from 'next/link';
 import { useUser } from 'reactfire';
-import { getAuth, signOut } from 'firebase/auth';
-import { useRouter } from 'next/router';
-import { useFirebaseApp } from 'reactfire';
+import Logo from '@/components/UI/Logo';
 
 interface NavItem {
   label: string;
@@ -96,26 +93,7 @@ export default function Header() {
             aria-label={'Toggle Navigation'}
           />
         </Flex>
-        <Flex
-          flex={{ base: 1 }}
-          justify={{ base: 'center', md: 'start' }}
-          alignItems="center"
-        >
-          <Text
-            textAlign={useBreakpointValue({
-              base: 'center',
-              md: 'left',
-            })}
-            fontFamily={'heading'}
-            color="gray.800"
-          >
-            <Image src={logo} alt="logo" width={35} height={35} />
-          </Text>
-
-          <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
-            <DesktopNav />
-          </Flex>
-        </Flex>
+        <Logo />
 
         <Stack
           flex={{ base: 1, md: 0 }}
@@ -219,7 +197,10 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
         <Box>
           <Text
             transition={'all .3s ease'}
-            _groupHover={{ color: 'green.400' }}
+            _groupHover={{
+              bgGradient: 'linear(to-r, #4158D0, #C850C0, #FFCC70)',
+              bgClip: 'text',
+            }}
             fontWeight={500}
           >
             {label}
@@ -238,7 +219,7 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
           align={'center'}
           flex={1}
         >
-          <Icon color={'green.400'} w={5} h={5} as={ChevronRightIcon} />
+          <Icon color="pink.500" w={5} h={5} as={ChevronRightIcon} />
         </Flex>
       </Stack>
     </Link>
