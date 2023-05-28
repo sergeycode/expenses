@@ -93,7 +93,17 @@ export default function Header() {
             aria-label={'Toggle Navigation'}
           />
         </Flex>
-        <Logo />
+        <Flex
+          flex={{ base: 1 }}
+          justify={{ base: 'center', md: 'start' }}
+          alignItems="center"
+        >
+          <Logo />
+
+          <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
+            <DesktopNav />
+          </Flex>
+        </Flex>
 
         <Stack
           flex={{ base: 1, md: 0 }}

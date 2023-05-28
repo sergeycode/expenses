@@ -50,7 +50,7 @@ export default function TransactionCard({
               borderRadius="xl"
               maxW="150px"
               variant="outline"
-              colorScheme={type === 'expense' ? 'red' : 'green'}
+              colorScheme={type === 'expense' ? 'pink' : 'teal'}
               onClick={onOpen}
               textTransform="capitalize"
             >

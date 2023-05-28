@@ -49,9 +49,9 @@ export default function TransactionRow({
       <Tr>
         <Td fontWeight="semibold" textTransform="capitalize">
           {type === 'expense' ? (
-            <ArrowDownIcon color="red.500" />
+            <ArrowDownIcon color="pink.400" />
           ) : (
-            <ArrowUpIcon color="green.500" />
+            <ArrowUpIcon color="teal.400" />
           )}
           {type}
         </Td>
@@ -64,7 +64,7 @@ export default function TransactionRow({
           <HStack>
             <Button
               borderRadius="xl"
-              colorScheme="green"
+              colorScheme="teal"
               variant="outline"
               size="sm"
               leftIcon={<EditIcon />}
@@ -74,7 +74,7 @@ export default function TransactionRow({
             </Button>
             <Button
               borderRadius="xl"
-              colorScheme="red"
+              colorScheme="pink"
               variant="outline"
               size="sm"
               leftIcon={<DeleteIcon />}

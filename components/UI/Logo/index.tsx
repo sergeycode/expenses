@@ -1,18 +1,20 @@
-import Image from 'next/image';
-import { HStack, Box } from '@chakra-ui/react';
-import logo from '/public/images/logo.webp';
+import { HStack, Box, Avatar } from '@chakra-ui/react';
 
 export default function Logo() {
   return (
     <HStack>
-      <Box borderRadius="lg" overflow="hidden">
-        <Image src={logo} alt="logo" width={35} height={35} />
-      </Box>
+      <Avatar
+        size="sm"
+        name="E T"
+        borderRadius="lg"
+        bgImage="linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%)"
+      />
       <Box
         bgGradient="linear(to-r, #4158D0, #C850C0, #FFCC70)"
         bgClip="text"
         fontWeight="bold"
         fontSize="md"
+        lineHeight={1}
       >
         Expenses Tracker
       </Box>
