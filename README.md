@@ -46,6 +46,7 @@
 7. Added Expenses and Income sections to the dashboard with adding to firestore functionality
 8. Add table with expenses and income and edit / delete functionality
 9. Restyled UI and refactored code
+10. Since I'm using Next.js, I would had to use Firebase Admin SDK to get access to the firestore data on the server side for page redirects to do protected routes. Instead for this project I used reactire package (as a requirement) to get access to the firestore data on the client side. I know it's not the best practice for Next.js, but it's a good solution for this project. Since I'm checking logged in user on client side, you may notice some page flickering on the protected routes.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
