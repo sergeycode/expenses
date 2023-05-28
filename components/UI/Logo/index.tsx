@@ -7,6 +7,7 @@ export default function Logo() {
         size="sm"
         name="E T"
         borderRadius="lg"
+        fontWeight="bold"
         bgImage="linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%)"
       />
       <Box

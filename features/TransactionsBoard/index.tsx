@@ -131,7 +131,14 @@ export default function TransactionsBoard({ user }: { user: any }) {
   return (
     <Box my={8}>
       {/* Filters */}
-      <Box mb={4}>
+      <Box
+        mb={4}
+        border="1px solid"
+        borderColor="chakra-border-color"
+        borderRadius="xl"
+        px={6}
+        py={6}
+      >
         <Box fontSize="md" fontWeight="semibold" mb={4}>
           Filter Transactions
         </Box>
