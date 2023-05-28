@@ -12,8 +12,8 @@ import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-  useBreakpointValue,
   useDisclosure,
+  Spinner,
 } from '@chakra-ui/react';
 import {
   HamburgerIcon,
@@ -21,7 +21,6 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from '@chakra-ui/icons';
-import Image from 'next/image';
 import NextLink from 'next/link';
 import { useUser } from 'reactfire';
 import Logo from '@/components/UI/Logo';
@@ -59,7 +58,14 @@ let NAV_ITEMS: Array<NavItem> = [
 export default function Header() {
   const { isOpen, onToggle } = useDisclosure();
 
-  const { data: user } = useUser();
+  const { error, status, data: user } = useUser();
+
+  if (error) {
+    return <Box>{error.message}</Box>;
+  }
+  if (status === 'loading') {
+    return <Spinner />;
+  }
 
   if (user && !NAV_ITEMS.some((item) => item.label === dashboardItem.label)) {
     NAV_ITEMS.unshift(dashboardItem);
