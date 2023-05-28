@@ -23,7 +23,7 @@ import TransactionRow from '@/components/UI/TransactionRow';
 import { useState, useEffect } from 'react';
 
 const summarizeByType = (type: string, transactions: DocumentData[]) => {
-  const total = transactions.reduce((acc: number, curr: any) => {
+  const total = transactions?.reduce((acc: number, curr: any) => {
     if (curr.type === type) {
       return acc + curr.amount;
     }
@@ -70,7 +70,7 @@ export default function TransactionsBoard({ user }: { user: any }) {
     idField: 'id',
   });
 
-  const [filter, setFilter] = useState(transactions);
+  const [filter, setFilter] = useState<DocumentData[]>([]);
   const [activeSwitch, setActiveSwitch] = useState<string | null>(null);
   const [activeMonth, setActiveMonth] = useState<string>('all');
 
@@ -250,7 +250,7 @@ export default function TransactionsBoard({ user }: { user: any }) {
                 <Th></Th>
                 <Th>Total Expenses</Th>
                 <Th isNumeric fontSize="lg">
-                  ${summarizeByType('expense', filter).toFixed(2)}
+                  ${filter && summarizeByType('expense', filter).toFixed(2)}
                 </Th>
                 <Th></Th>
               </Tr>
@@ -259,7 +259,7 @@ export default function TransactionsBoard({ user }: { user: any }) {
                 <Th></Th>
                 <Th>Total Income</Th>
                 <Th isNumeric fontSize="lg">
-                  ${summarizeByType('income', filter).toFixed(2)}
+                  ${filter && summarizeByType('income', filter).toFixed(2)}
                 </Th>
                 <Th></Th>
               </Tr>
@@ -268,7 +268,7 @@ export default function TransactionsBoard({ user }: { user: any }) {
                 <Th></Th>
                 <Th>Total Balance</Th>
                 <Th isNumeric fontSize="lg">
-                  ${summarizeTotal(filter).toFixed(2)}
+                  ${filter && summarizeTotal(filter).toFixed(2)}
                 </Th>
                 <Th></Th>
               </Tr>
