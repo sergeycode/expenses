@@ -13,7 +13,6 @@ import NextLink from 'next/link';
 import { IconWithText, IIconWithText } from '@/components/UI/IconWithText';
 
 export interface IMarketingHero {
-  pill: string;
   heading: string;
   text: string;
   icons: IIconWithText[];
@@ -21,7 +20,6 @@ export interface IMarketingHero {
 }
 
 export default function MarketingHero({
-  pill,
   heading,
   text,
   icons,
@@ -29,20 +27,8 @@ export default function MarketingHero({
 }: IMarketingHero) {
   return (
     <Container maxW={'5xl'} py={12}>
-      <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={10}>
+      <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={10} alignItems="center">
         <Stack spacing={4}>
-          <Text
-            color="white"
-            fontWeight={600}
-            fontSize={'xs'}
-            bgImage="linear(to-r, #4158D0, #C850C0, #FFCC70)"
-            px={4}
-            py={2}
-            alignSelf={'flex-start'}
-            rounded="2xl"
-          >
-            {pill}
-          </Text>
           <Heading
             bgGradient="linear(to-r, #4158D0, #C850C0, #FFCC70)"
             bgClip="text"
@@ -55,7 +41,7 @@ export default function MarketingHero({
           <Text color={'gray.500'} fontSize={{ base: 'md', md: 'lg' }}>
             {text}
           </Text>
-          <Stack spacing={4} divider={<StackDivider borderColor="gray.100" />}>
+          <Stack spacing={4}>
             {icons.map((icon) => (
               <IconWithText
                 key={icon.text}
@@ -71,6 +57,7 @@ export default function MarketingHero({
             href="/signup"
             minH="3.125rem"
             maxW="15.625rem"
+            transform={{ lg: 'translateY(2rem)' }}
           >
             <Box
               fontSize="md"
@@ -82,7 +69,15 @@ export default function MarketingHero({
             </Box>
           </Button>
         </Stack>
-        <Image src={image} alt={'feature image'} width={1200} height={800} />
+        <Box borderRadius="xl" overflow="hidden">
+          <Image
+            src={image}
+            alt={'feature image'}
+            width={1200}
+            height={800}
+            priority={true}
+          />
+        </Box>
       </SimpleGrid>
     </Container>
   );

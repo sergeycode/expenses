@@ -20,7 +20,9 @@ export function IconWithText({ text, icon, iconBg }: IIconWithText) {
       >
         {icon}
       </Flex>
-      <Text fontWeight={600}>{text}</Text>
+      <Text fontWeight={600} fontSize="sm">
+        {text}
+      </Text>
     </Stack>
   );
 }

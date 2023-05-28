@@ -4,7 +4,6 @@ import MarketingHero from '@/features/MarketingHero';
 import { CheckIcon, StarIcon, CalendarIcon } from '@chakra-ui/icons';
 
 const marketingHero = {
-  pill: 'Expenses Tracker',
   heading: 'Introducing Expenses Tracker',
   text: 'Enter your expense details to track and analyze your spending habits effectively. Record your income sources for accurate financial analysis and budgeting.',
   icons: [
@@ -15,7 +14,7 @@ const marketingHero = {
     },
     {
       icon: <CalendarIcon color="white" />,
-      text: 'And your income',
+      text: 'Manage your income',
       iconBg: 'linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%)',
     },
     {
