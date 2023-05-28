@@ -100,7 +100,9 @@ export default function TransactionForm({
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent px={4} py={6}>
-        <ModalHeader textTransform="capitalize">Add {type}</ModalHeader>
+        <ModalHeader textTransform="capitalize">
+          {data?.id ? 'Edit' : 'Add'} {type}
+        </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <Formik
