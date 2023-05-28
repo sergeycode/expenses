@@ -30,6 +30,10 @@ const FormSchema = Yup.object().shape({
     .required('Date is required'),
 });
 
+const formatDate = (date: Date) => {
+  return new Date(date).toISOString().substr(0, 10);
+};
+
 export default function TransactionForm({
   type,
   onClose,
@@ -119,7 +123,7 @@ export default function TransactionForm({
                 userId: user?.uid as string,
                 title: values.title,
                 amount: values.amount,
-                date: values.date,
+                date: formatDate(new Date(values.date)),
                 type: type,
               })
             }
