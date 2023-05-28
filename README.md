@@ -37,16 +37,18 @@
 
 ## About The Project
 
-1. I chose to use Next.js with Chakra UI and other packages as my starting point
-2. Added basic Firebase setup
-3. Added basic UI with Header, Footer, Signup, Login Components and pages
-4. Stared working on Signup and Login functionality with Formik, Yup and Firebase
-5. Added Forget Password / Reset Password functionality
-6. Dashboard with logged-in user info
-7. Added Expenses and Income sections to the dashboard with adding to firestore functionality
-8. Add table with expenses and income and edit / delete functionality
-9. Restyled UI and refactored code
-10. Since I'm using Next.js, I would had to use Firebase Admin SDK to get access to the firestore data on the server side for page redirects to do protected routes. Instead for this project I used reactire package (as a requirement) to get access to the firestore data on the client side. I know it's not the best practice for Next.js, but it's a good solution for this project. Since I'm checking logged in user on client side, you may notice some page flickering on the protected routes.
+1. I selected Next.js with Chakra UI and other packages as the initial setup for the project.
+2. I added the necessary configuration for Firebase to establish a basic setup.
+3. Created a basic user interface consisting of components such as Header, Footer, Signup, and Login, along with respective pages.
+4. Implemented the functionality for user signup and login using Formik, Yup, and Firebase.
+5. Added features for password reset, including the forget password and reset password functionality.
+6. Developed a dashboard to display information specific to logged-in users.
+7. Included sections in the dashboard for managing expenses and income, enabling users to add entries that are stored in the firestore database.
+8. Implemented a table with edit and delete functionality for viewing and managing expenses and income.
+9. Refactored the code for improved organization and restyled the user interface.
+10. Added Homepage
+11. Due to using Next.js, it was necessary to use the Firebase Admin SDK to access firestore data on the server side for protected routes. However, for this project, I utilized the reactire package (as a requirement) to access firestore data on the client side, which may not be considered a best practice for Next.js. As a result, there may be some page flickering on the protected routes due to client-side user authentication checks.
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
