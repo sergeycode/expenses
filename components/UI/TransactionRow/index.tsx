@@ -9,15 +9,10 @@ import TransactionForm from '@/components/Form/TransactionForm';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { useFirestore } from 'reactfire';
 import { toast } from 'react-hot-toast';
-
-const formatDate = (date: string) => {
-  const dateObj = new Date(date);
-  return dateObj.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-};
+import { useUser } from 'reactfire';
+import { useHandleTransaction } from '@/hooks/handleTransaction';
+import { formatFormDate, formatDateToString } from '@/utils/helpers';
+import { IValues } from '@/components/Form/TransactionForm';
 
 export default function TransactionRow({
   id,
@@ -35,6 +30,27 @@ export default function TransactionRow({
   const { isOpen, onOpen, onClose } = useDisclosure();
   const firestore = useFirestore();
   const documentRef = doc(firestore, 'transactions', id);
+
+  const { data: user } = useUser();
+
+  const { handleTransaction } = useHandleTransaction();
+
+  const handleSubmit = async (values: IValues) => {
+    try {
+      await handleTransaction({
+        userId: user?.uid as string,
+        title: values.title,
+        amount: values.amount,
+        date: formatFormDate(new Date(values.date)),
+        type: type,
+      });
+      onClose();
+      toast.success(`${type} added successfully!`);
+    } catch (error) {
+      onClose();
+      toast.error(`Error adding ${type}: ${error}`);
+    }
+  };
 
   const deteleTransaction = async () => {
     try {
@@ -56,7 +72,7 @@ export default function TransactionRow({
           {type}
         </Td>
         <Td>{title}</Td>
-        <Td>{formatDate(date)}</Td>
+        <Td>{formatDateToString(date)}</Td>
         <Td fontWeight="semibold" isNumeric>
           {type === 'expense' && '-'} ${amount}
         </Td>
@@ -94,6 +110,7 @@ export default function TransactionRow({
             onClose={onClose}
             isOpen={isOpen}
             type={type}
+            onSubmit={handleSubmit}
           />
         </Td>
       </Tr>

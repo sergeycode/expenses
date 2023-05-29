@@ -11,6 +11,11 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import TransactionForm from '@/components/Form/TransactionForm';
+import { useUser } from 'reactfire';
+import { useHandleTransaction } from '@/hooks/handleTransaction';
+import toast from 'react-hot-toast';
+import { formatFormDate } from '@/utils/helpers';
+import { IValues } from '@/components/Form/TransactionForm';
 
 export default function TransactionCard({
   type,
@@ -18,6 +23,27 @@ export default function TransactionCard({
   type: 'expense' | 'income';
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const { data: user } = useUser();
+
+  const { handleTransaction } = useHandleTransaction();
+
+  const handleSubmit = async (values: IValues) => {
+    try {
+      await handleTransaction({
+        userId: user?.uid as string,
+        title: values.title,
+        amount: values.amount,
+        date: formatFormDate(new Date(values.date)),
+        type: type,
+      });
+      onClose();
+      toast.success(`${type} added successfully!`);
+    } catch (error) {
+      onClose();
+      toast.error(`Error adding ${type}: ${error}`);
+    }
+  };
 
   return (
     <Card
@@ -59,7 +85,12 @@ export default function TransactionCard({
           </GridItem>
         </CardBody>
       </Stack>
-      <TransactionForm type={type} onClose={onClose} isOpen={isOpen} />
+      <TransactionForm
+        type={type}
+        onClose={onClose}
+        isOpen={isOpen}
+        onSubmit={handleSubmit}
+      />
     </Card>
   );
 }

@@ -15,9 +15,6 @@ import {
 import { InputErrorMessage } from '@/components/Form/InputErrorMessage';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
-import { useUser } from 'reactfire';
-import { useHandleTransaction } from '@/hooks/handleTransaction';
-import toast from 'react-hot-toast';
 
 const FormSchema = Yup.object().shape({
   title: Yup.string().required('Title is required'),
@@ -30,15 +27,19 @@ const FormSchema = Yup.object().shape({
     .required('Date is required'),
 });
 
-const formatDate = (date: Date) => {
-  return new Date(date).toISOString().substr(0, 10);
-};
+export interface IValues {
+  title: string;
+  amount: number;
+  date: string;
+  type: string;
+}
 
 export default function TransactionForm({
   type,
   onClose,
   isOpen,
   data,
+  onSubmit,
 }: {
   type: 'expense' | 'income';
   onClose: () => void;
@@ -50,34 +51,8 @@ export default function TransactionForm({
     date: string;
     type: string;
   };
+  onSubmit: (values: IValues) => void;
 }) {
-  const { data: user } = useUser();
-
-  const { handleTransaction } = useHandleTransaction();
-
-  const onSubmit = async (values: {
-    title: string;
-    amount: number;
-    date: string;
-    type: string;
-  }) => {
-    try {
-      await handleTransaction({
-        id: data?.id,
-        userId: user?.uid as string,
-        title: values.title,
-        amount: values.amount,
-        date: formatDate(new Date(values.date)),
-        type: type,
-      });
-      onClose();
-      toast.success(`${type} added successfully!`);
-    } catch (error) {
-      onClose();
-      toast.error(`Error adding ${type}: ${error}`);
-    }
-  };
-
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
