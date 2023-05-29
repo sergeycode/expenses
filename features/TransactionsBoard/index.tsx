@@ -224,8 +224,8 @@ export default function TransactionsBoard({ user }: { user: any }) {
           <Table variant="simple">
             <Thead>
               <Tr>
-                <Th>Title</Th>
                 <Th>Type</Th>
+                <Th>Title</Th>
                 <Th>Date</Th>
                 <Th isNumeric>Amount</Th>
                 <Th>Actions</Th>
