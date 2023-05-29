@@ -104,7 +104,7 @@ Distributed under the MIT License.
 
 Twitter - [@sergeycode](https://twitter.com/sergeycode)
 
-Project Link: [https://github.com/sergeycode/expenses](https://github.com/sergeycodeexpenses-project)
+Project Link: [https://github.com/sergeycode/expenses](https://github.com/sergeycode/expenses)
 
 Github pages - [https://sergeycode.github.io/](https://sergeycode.github.io/)
 
