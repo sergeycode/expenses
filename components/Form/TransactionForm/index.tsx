@@ -31,7 +31,6 @@ export interface IValues {
   title: string;
   amount: number;
   date: string;
-  type: string;
 }
 
 export default function TransactionForm({
@@ -66,8 +65,7 @@ export default function TransactionForm({
             initialValues={{
               title: data?.title || '',
               amount: data?.amount || 0,
-              date: data?.date || '',
-              type: data?.type || '',
+              date: data?.date.substring(0, 10) || '',
             }}
             validationSchema={FormSchema}
             onSubmit={(values) => onSubmit(values)}
@@ -87,6 +85,7 @@ export default function TransactionForm({
                     <FormLabel>Title</FormLabel>
                     <Input
                       type="text"
+                      data-testid="title"
                       onChange={handleChange('title')}
                       onBlur={handleBlur('title')}
                       value={values.title}
@@ -97,6 +96,7 @@ export default function TransactionForm({
                     <FormLabel>Amount</FormLabel>
                     <Input
                       type="number"
+                      data-testid="amount"
                       onChange={handleChange('amount')}
                       onBlur={handleBlur('amount')}
                       value={values.amount}
@@ -107,6 +107,7 @@ export default function TransactionForm({
                     <FormLabel>Date</FormLabel>
                     <Input
                       type="date"
+                      data-testid="date"
                       onChange={handleChange('date')}
                       onBlur={handleBlur('date')}
                       value={values.date}

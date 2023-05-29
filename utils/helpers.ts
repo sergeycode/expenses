@@ -1,5 +1,5 @@
 export const formatFormDate = (date: Date) => {
-  return new Date(date).toISOString().substr(0, 10);
+  return new Date(date).toISOString();
 };
 
 export const formatDateToString = (date: string) => {

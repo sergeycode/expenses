@@ -38,6 +38,7 @@ export default function TransactionRow({
   const handleSubmit = async (values: IValues) => {
     try {
       await handleTransaction({
+        id,
         userId: user?.uid as string,
         title: values.title,
         amount: values.amount,
