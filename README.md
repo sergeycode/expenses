@@ -37,8 +37,8 @@
 
 ## About The Project
 
-1. I selected Next.js with Chakra UI and other packages as the initial setup for the project.
-2. I added the necessary configuration for Firebase to establish a basic setup.
+1. Selected Next.js with Chakra UI and other packages as the initial setup for the project.
+2. Added the necessary configuration for Firebase to establish a basic setup.
 3. Created a basic user interface consisting of components such as Header, Footer, Signup, and Login, along with respective pages.
 4. Implemented the functionality for user signup and login using Formik, Yup, and Firebase.
 5. Added features for password reset, including the forget password and reset password functionality.
@@ -46,8 +46,9 @@
 7. Included sections in the dashboard for managing expenses and income, enabling users to add entries that are stored in the firestore database.
 8. Implemented a table with edit and delete functionality for viewing and managing expenses and income.
 9. Refactored the code for improved organization and restyled the user interface.
-10. Added Homepage
+10. Added Homepage for Marketing purposes.
 11. Due to using Next.js, it was necessary to use the Firebase Admin SDK to access firestore data on the server side for protected routes. However, for this project, I utilized the reactire package (as a requirement) to access firestore data on the client side, which may not be considered a best practice for Next.js. As a result, there may be some page flickering on the protected routes due to client-side user authentication checks.
+12. Added Jest test for TransactionForm and refactored code to make it testable.
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
