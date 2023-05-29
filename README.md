@@ -49,6 +49,7 @@
 10. Added Homepage for Marketing purposes.
 11. Due to using Next.js, it was necessary to use the Firebase Admin SDK to access firestore data on the server side for protected routes. However, for this project, I utilized the reactire package (as a requirement) to access firestore data on the client side, which may not be considered a best practice for Next.js. As a result, there may be some page flickering on the protected routes due to client-side user authentication checks.
 12. Added Jest test for TransactionForm and refactored code to make it testable.
+13. Deployed the project on Vercel.
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -68,7 +69,7 @@
 
 1. Clone the repo
    ```sh
-   git clone git@github.com:sergeycode/expenses-project.git
+   git clone git@github.com:sergeycode/expenses.git
    ```
 2. Install NPM packages
    ```sh
@@ -103,7 +104,7 @@ Distributed under the MIT License.
 
 Twitter - [@sergeycode](https://twitter.com/sergeycode)
 
-Project Link: [https://github.com/sergeycode/expenses-project](https://github.com/sergeycodeexpenses-project)
+Project Link: [https://github.com/sergeycode/expenses](https://github.com/sergeycodeexpenses-project)
 
 Github pages - [https://sergeycode.github.io/](https://sergeycode.github.io/)
 
@@ -124,4 +125,4 @@ Github pages - [https://sergeycode.github.io/](https://sergeycode.github.io/)
 [chakraui]: https://img.shields.io/badge/Chakra-20232A?style=for-the-badge&logo=chakraui&logoColor=319795
 [typescript]: https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white
 [vercel]: https://img.shields.io/badge/vercel-20232A?style=for-the-badge&logo=vercel
-[vercel-url]: https://expenses-project-sergeycode.vercel.app/
+[vercel-url]: https://ex-trackr.vercel.app/
