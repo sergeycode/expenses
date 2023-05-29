@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { useUser } from 'reactfire';
 import AddTransactions from '@/features/AddTransactions';
 import TransactionsBoard from '@/features/TransactionsBoard';
+import FirestoreProviderWrapper from '@/components/FirestoreProviderWrapper';
 
 export default function Home() {
   const { error, status, data: user } = useUser();
@@ -43,8 +44,10 @@ export default function Home() {
       />
       <Layout>
         <Hero title="Dashboard" name={user?.displayName} email={user?.email} />
-        <AddTransactions />
-        <TransactionsBoard user={user} />
+        <FirestoreProviderWrapper>
+          <AddTransactions />
+          <TransactionsBoard user={user} />
+        </FirestoreProviderWrapper>
       </Layout>
     </>
   );

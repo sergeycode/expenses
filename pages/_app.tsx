@@ -6,7 +6,6 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, connectAuthEmulator } from 'firebase/auth';
 import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
 import { Toaster } from 'react-hot-toast';
-import FirestoreProviderWrapper from '@/components/FirestoreProviderWrapper';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -32,10 +31,8 @@ export default function App({ Component, pageProps }: AppProps) {
     <ChakraProvider theme={theme}>
       <FirebaseAppProvider firebaseConfig={firebaseConfig}>
         <AuthProvider sdk={auth}>
-          <FirestoreProviderWrapper>
-            <Toaster />
-            <Component {...pageProps} />
-          </FirestoreProviderWrapper>
+          <Toaster />
+          <Component {...pageProps} />
         </AuthProvider>
       </FirebaseAppProvider>
     </ChakraProvider>
