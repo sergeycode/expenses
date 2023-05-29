@@ -7,10 +7,7 @@
   <h3 align="center">Expenses Project with ReactFire</h3>
 
   <p align="center">
-    Expenses Project with ReactFire
-  </p>
-  <p align="center">
-    Completed by Serhii Ovcharenko on 2023
+    Completed by Serhii Ovcharenko on May 28, 2023
   </p>
 
 </div>
@@ -47,7 +44,7 @@
 8. Implemented a table with edit and delete functionality for viewing and managing expenses and income.
 9. Refactored the code for improved organization and restyled the user interface.
 10. Added Homepage for Marketing purposes.
-11. Due to using Next.js, it was necessary to use the Firebase Admin SDK to access firestore data on the server side for protected routes. However, for this project, I utilized the reactire package (as a requirement) to access firestore data on the client side, which may not be considered a best practice for Next.js. As a result, there may be some page flickering on the protected routes due to client-side user authentication checks.
+11. Due to using Next.js, I would have to use the Firebase Admin SDK to access firestore data on the server side for protected routes. However, for this project, I utilized the reactire package (as a requirement) to access firestore data on the client side, which may not be considered a best practice for Next.js. As a result, there may be some page flickering on the protected routes due to client-side user authentication checks.
 12. Added Jest test for TransactionForm and refactored code to make it testable.
 13. Deployed the project on Vercel.
 
