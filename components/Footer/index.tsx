@@ -7,7 +7,7 @@ export default function Footer() {
   };
 
   return (
-    <Box bg="gray.50" color="gray.700">
+    <Box color="gray.700">
       <Box py={10}>
         <Flex
           align={'center'}

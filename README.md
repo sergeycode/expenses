@@ -106,7 +106,7 @@ Twitter - [@sergeycode](https://twitter.com/sergeycode)
 
 Project Link: [https://github.com/sergeycode/expenses](https://github.com/sergeycode/expenses)
 
-Github pages - [https://sergeycode.github.io/](https://sergeycode.github.io/)
+Portfolio - [https://serhii.pro/](https://serhii.pro/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
