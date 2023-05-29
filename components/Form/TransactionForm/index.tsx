@@ -15,8 +15,8 @@ import {
 import { InputErrorMessage } from '@/components/Form/InputErrorMessage';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
-import { useUser, useFirestore } from 'reactfire';
-import { collection, addDoc, updateDoc, doc } from 'firebase/firestore';
+import { useUser } from 'reactfire';
+import { useHandleTransaction } from '@/hooks/handleTransaction';
 import toast from 'react-hot-toast';
 
 const FormSchema = Yup.object().shape({
@@ -52,46 +52,24 @@ export default function TransactionForm({
   };
 }) {
   const { data: user } = useUser();
-  const firestore = useFirestore();
 
-  const handleAddExpense = async ({
-    id,
-    userId,
-    title,
-    amount,
-    date,
-    type,
-  }: {
-    id?: string;
-    userId: string;
+  const { handleTransaction } = useHandleTransaction();
+
+  const onSubmit = async (values: {
     title: string;
     amount: number;
     date: string;
     type: string;
   }) => {
     try {
-      const transactionsRef = collection(firestore, 'transactions');
-      let transactionUpdateRef;
-
-      if (id) {
-        transactionUpdateRef = doc(firestore, 'transactions', id as string);
-        await updateDoc(transactionUpdateRef, {
-          userId,
-          title,
-          amount,
-          date,
-          type,
-        });
-      } else {
-        await addDoc(transactionsRef, {
-          userId,
-          title,
-          amount,
-          date,
-          type,
-        });
-      }
-
+      await handleTransaction({
+        id: data?.id,
+        userId: user?.uid as string,
+        title: values.title,
+        amount: values.amount,
+        date: formatDate(new Date(values.date)),
+        type: type,
+      });
       onClose();
       toast.success(`${type} added successfully!`);
     } catch (error) {
@@ -117,16 +95,7 @@ export default function TransactionForm({
               type: data?.type || '',
             }}
             validationSchema={FormSchema}
-            onSubmit={(values) =>
-              handleAddExpense({
-                id: data?.id,
-                userId: user?.uid as string,
-                title: values.title,
-                amount: values.amount,
-                date: formatDate(new Date(values.date)),
-                type: type,
-              })
-            }
+            onSubmit={(values) => onSubmit(values)}
           >
             {({
               errors,
